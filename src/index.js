@@ -43,18 +43,13 @@ app.get("/", function (req, res) {
         //
         let svgres = ` 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-        fill="none" id="rootele">
+        fill="none" id="rootele" viewBox="0 0  100% ${result.length*110} ">
 
         <style>
           .bg{
             position:relative;
 
             display:block;
-          }
-
-          #rootele{
-             display: grid;
-             grid-template-columns: repeat(auto-fit, 250px);
           }
 
            </style>
@@ -67,16 +62,16 @@ app.get("/", function (req, res) {
           }
           svgres =
             svgres +
-            `<svg  width="250" height="250"  class="bg" x='${i * 250}' y='${
-              j * 250
+            `<svg  width="100" height="100"  class="bg" x='${i * 100}' y='${
+              j * 100
             }'>
-                    <circle cx="125" cy="125" r="100" fill="#aeaeae" />
+                    <circle cx="50" cy="50" r="50" fill="#aeaeae" />
                           <defs>
                             <clipPath id="circleView">
-                                <circle cx="125" cy="125" r="100" fill="#FFFFFF" />            
+                                <circle cx="50" cy="50" r="50" fill="#FFFFFF" />            
                             </clipPath>
                           </defs>
-                        <image width="250" height="250" xlink:href="${
+                        <image width="100" height="100" xlink:href="${
                           result[i].author.avatar_url
                         }" clip-path="url(#circleView)" />
                         <text x="50%" y="50%" text-anchor="middle" fill="red" font-size="16px" font-family="Arial" dy=".3em">${
