@@ -21,7 +21,7 @@ app.get("/", function (req, res) {
     )
       .then((response) => response.json())
       .then((result) => {
-       /* let sav = ``;
+        /* let sav = ``;
         for (i in result) {
           // console.log("NAME :" + result[i].author.login + "---> COMMITS :" + result[i].total );
           sav =
@@ -41,23 +41,51 @@ app.get("/", function (req, res) {
       
         }*/
         //
-        let svgres = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="100%" width="100%">`;
-        for( i in result){
+        let svgres = ` 
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        fill="none" id="rootele">
+
+        <style>
+          .bg{
+            position:relative;
+
+            display:block;
+          }
+
+          #rootele{
+             display: grid;
+             grid-template-columns: repeat(auto-fit, 250px);
+          }
+
+           </style>
+      
+        `;
+        let j = 0;
+        for (i in result) {
+          if (i % 2 == 0 && i != 0) {
+            j++;
+          }
           svgres =
             svgres +
-            `<svg  width="250" height="250" >
+            `<svg  width="250" height="250"  class="bg" x='${i * 250}' y='${
+              j * 250
+            }'>
                     <circle cx="125" cy="125" r="100" fill="#aeaeae" />
                           <defs>
                             <clipPath id="circleView">
                                 <circle cx="125" cy="125" r="100" fill="#FFFFFF" />            
                             </clipPath>
                           </defs>
-                        <image width="250" height="250" xlink:href="${result[i].author.avatar_url}" clip-path="url(#circleView)" />
-                        <text x="50%" y="50%" text-anchor="middle" fill="red" font-size="16px" font-family="Arial" dy=".3em">${result[i].author.login}</text>
+                        <image width="250" height="250" xlink:href="${
+                          result[i].author.avatar_url
+                        }" clip-path="url(#circleView)" />
+                        <text x="50%" y="50%" text-anchor="middle" fill="red" font-size="16px" font-family="Arial" dy=".3em">${
+                          result[i].author.login
+                        }</text>
              </svg>`;
         }
-        
-        svgres=svgres+`</svg>`
+
+        svgres = svgres + `</svg>`;
 
         res.setHeader("Content-Type", "image/svg+xml");
 
