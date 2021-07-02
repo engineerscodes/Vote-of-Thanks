@@ -24,9 +24,11 @@ app.get("/", function (req, res) {
         console.log(result.length);
         let rows = Math.ceil(result.length / 6);
         console.log(rows);
+        `width="812" height="608">`;
         let svgres = ` 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-        fill="none" id="rootele" viewBox="0 0  ${6 * 100} ${100 * rows}">
+        xmlns:svgjs="http://svgjs.com/svgjs" version="1.1"  
+        fill="none" id="rootele"  width="${6 * 70}" height="${70 * rows}">
         <style>
           .bg{
             position: relative;
@@ -51,16 +53,17 @@ app.get("/", function (req, res) {
 
           svgres =
             svgres +
-            `<g><svg  width="100" height="100"  class="bg" x="${c * 100}" y="${
-              j * 100
-            }">
-                    <circle cx="50" cy="50" r="50" fill="#aeaeae" />
+            `<g><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+               xmlns:svgjs="http://svgjs.com/svgjs" version="1.1"   width="64" height="64"  class="bg" x="${
+                 c * 70
+               }" y="${j * 70}">
+                    <circle cx="32" cy="32" r="32" fill="#aeaeae" />
                           <defs>
                             <clipPath id="circleView" >
-                                <circle cx="50" cy="50" r="45" fill="#FFFFFF" />            
+                                <circle cx="32" cy="32" r="32" stroke="#c0c0c0" fill="#FFFFFF" />            
                             </clipPath>
                           </defs>
-                        <image stroke="black" stroke-width="5" width="100" height="100" xlink:href="${
+                        <image stroke="black" stroke-width="5" width="70" height="70" xlink:href="${
                           result[i].author.avatar_url
                         }" clip-path="url(#circleView)" />
                         <text x="50%" y="50%" text-anchor="middle" fill="red" font-size="16px" font-family="Arial" dy=".3em">${
