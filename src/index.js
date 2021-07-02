@@ -21,63 +21,53 @@ app.get("/", function (req, res) {
     )
       .then((response) => response.json())
       .then((result) => {
-        /* let sav = ``;
-        for (i in result) {
-          // console.log("NAME :" + result[i].author.login + "---> COMMITS :" + result[i].total );
-          sav =
-            sav +
-            `<svg  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 250 250" width="250" height="250" >
-                    <circle cx="125" cy="125" r="100" fill="#aeaeae" />
-                          <defs>
-                            <clipPath id="circleView">
-                                <circle cx="125" cy="125" r="100" fill="#FFFFFF" />            
-                            </clipPath>
-                          </defs>
-                        <image width="250" height="250" xlink:href="${result[i].author.avatar_url}" clip-path="url(#circleView)" />
-                        <text x="50%" y="50%" text-anchor="middle" fill="red" font-size="16px" font-family="Arial" dy=".3em">${result[i].author.login}</text>
-             </svg>
-      `;
-       
-      
-        }*/
-        //
+        console.log(result.length);
+        let rows = Math.ceil(result.length / 6);
+        console.log(rows);
         let svgres = ` 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-        fill="none" id="rootele" viewBox="0 0  100% ${result.length*110} ">
-
+        fill="none" id="rootele" viewBox="0 0  ${6 * 100} ${100 * rows}">
         <style>
           .bg{
-            position:relative;
-
+            position: relative;
             display:block;
           }
 
+          #rootele{
+               position: relative;
+               display:block;
+
+          }
            </style>
       
         `;
         let j = 0;
+        let c = 0;
         for (i in result) {
-          if (i % 2 == 0 && i != 0) {
+          if (c % 6 == 0 && i != 0) {
             j++;
+            c = 0;
           }
+
           svgres =
             svgres +
-            `<svg  width="100" height="100"  class="bg" x='${i * 100}' y='${
+            `<g><svg  width="100" height="100"  class="bg" x="${c * 100}" y="${
               j * 100
-            }'>
+            }">
                     <circle cx="50" cy="50" r="50" fill="#aeaeae" />
                           <defs>
-                            <clipPath id="circleView">
-                                <circle cx="50" cy="50" r="50" fill="#FFFFFF" />            
+                            <clipPath id="circleView" >
+                                <circle cx="50" cy="50" r="45" fill="#FFFFFF" />            
                             </clipPath>
                           </defs>
-                        <image width="100" height="100" xlink:href="${
+                        <image stroke="black" stroke-width="5" width="100" height="100" xlink:href="${
                           result[i].author.avatar_url
                         }" clip-path="url(#circleView)" />
                         <text x="50%" y="50%" text-anchor="middle" fill="red" font-size="16px" font-family="Arial" dy=".3em">${
                           result[i].author.login
                         }</text>
-             </svg>`;
+             </svg></g>`;
+          c++;
         }
 
         svgres = svgres + `</svg>`;
@@ -89,4 +79,6 @@ app.get("/", function (req, res) {
       .catch((error) => console.log("error", error));
 });
 
-app.listen(8080);
+app.listen(8080, () => {
+  console.log(`app listening at http://localhost:8080`);
+});
