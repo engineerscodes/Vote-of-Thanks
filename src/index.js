@@ -52,19 +52,16 @@ app.get("/", function (req, res) {
           }
           const canvas = createCanvas(200, 200);
           const context = canvas.getContext("2d");
-          let DataURLCanvas = "";
+
           loadImage(`${result[i].author.avatar_url}.png`).then((image) => {
             context.drawImage(image, 0, 0, 200, 200);
             //console.log(
             //canvas.toDataURL() +
             //   "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
             // );
-          //  DataURLCanvas = Object.create(canvas.toDataURL());
-           // console.log(
-            //  DataURLCanvas.toDataURL + "\n $$$$$$$$$$$$$$$$$$$$$$$$"
-            //);
+            return canvas.toDataURL();
           });
-        //  console.log(DataURLCanvas.toDataURL);
+          console.log(Urlc);
 
           svgres =
             svgres +
@@ -78,9 +75,7 @@ app.get("/", function (req, res) {
                                 <circle cx="32" cy="32" r="32" stroke="#c0c0c0" fill="#FFFFFF" />            
                             </clipPath>
                           </defs>
-                        <image stroke="black" stroke-width="5" width="70" height="70" src="${
-                          DataURLCanvas.toDataURL
-                        }" clip-path="url(#circleView)" />
+                        <image stroke="black" stroke-width="5" width="70" height="70" src="${i}" clip-path="url(#circleView)" />
                         <text x="50%" y="50%" text-anchor="middle" fill="red" font-size="16px" font-family="Arial" dy=".3em">${
                           result[i].author.login
                         }</text>
