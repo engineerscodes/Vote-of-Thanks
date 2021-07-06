@@ -1,5 +1,5 @@
 const express = require("express");
-
+const { createCanvas, loadImage } = require("canvas");
 const app = express();
 
 app.get("/", function (req, res) {
@@ -24,7 +24,7 @@ app.get("/", function (req, res) {
         console.log(result.length);
         let rows = Math.ceil(result.length / 6);
         console.log(rows);
-        `width="812" height="608">`;
+
         let svgres = ` 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
         xmlns:svgjs="http://svgjs.com/svgjs" version="1.1"  
@@ -50,6 +50,21 @@ app.get("/", function (req, res) {
             j++;
             c = 0;
           }
+          const canvas = createCanvas(200, 200);
+          const context = canvas.getContext("2d");
+          let DataURLCanvas = "";
+          loadImage(`${result[i].author.avatar_url}.png`).then((image) => {
+            context.drawImage(image, 0, 0, 200, 200);
+            //console.log(
+            //canvas.toDataURL() +
+            //   "\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+            // );
+          //  DataURLCanvas = Object.create(canvas.toDataURL());
+           // console.log(
+            //  DataURLCanvas.toDataURL + "\n $$$$$$$$$$$$$$$$$$$$$$$$"
+            //);
+          });
+        //  console.log(DataURLCanvas.toDataURL);
 
           svgres =
             svgres +
@@ -63,8 +78,8 @@ app.get("/", function (req, res) {
                                 <circle cx="32" cy="32" r="32" stroke="#c0c0c0" fill="#FFFFFF" />            
                             </clipPath>
                           </defs>
-                        <image stroke="black" stroke-width="5" width="70" height="70" xlink:href="${
-                          result[i].author.avatar_url
+                        <image stroke="black" stroke-width="5" width="70" height="70" src="${
+                          DataURLCanvas.toDataURL
                         }" clip-path="url(#circleView)" />
                         <text x="50%" y="50%" text-anchor="middle" fill="red" font-size="16px" font-family="Arial" dy=".3em">${
                           result[i].author.login
