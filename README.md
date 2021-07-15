@@ -7,6 +7,5 @@ github contributor stats
 <hr>
 
 
-![alt](https://naveen.vercel.app/?username=engineerscodes&repo=AndroidClub)
 
 
