@@ -2,10 +2,11 @@ from flask import Flask
 import requests as req
 import base64
 from utils import docache
-
-
+from PIL import Image
+from PIL import Image
+from io import BytesIO
 from flask import request
-
+import io
 
 
 app= Flask(__name__)
@@ -26,7 +27,13 @@ def home():
     Colcount=0
     Rowcount=0
     for i in rjson:
-        dataurl=base64.b64encode(req.get(i['author']['avatar_url']).content).decode('UTF-8')
+        ImageContent=req.get(i['author']['avatar_url']).content
+        pilImage = Image.open(BytesIO(ImageContent))
+        print(pilImage.size)
+        pilImage.resize((32, 32), Image.ANTIALIAS)
+        img_in_bytes = io.BytesIO()
+        pilImage.save(img_in_bytes,'png',optimize=True,quality=20)
+        dataurl=base64.b64encode(img_in_bytes.getvalue()).decode('UTF-8')
         ImageURL=f"data:image/png;base64,{dataurl}"
         image=image+f'''
         <svg  width="70" height="70"  x="{70*Colcount}" y="{70*Rowcount}" >
