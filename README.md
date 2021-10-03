@@ -6,6 +6,7 @@ github contributor stats
 <br>
 <hr>
 
+<img src="https://voteforthanks.azurewebsites.net/">
 
 
 
