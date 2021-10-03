@@ -3,7 +3,6 @@ import requests as req
 import base64
 from utils import docache
 from PIL import Image
-from PIL import Image
 from io import BytesIO
 from flask import request
 import io
@@ -13,7 +12,7 @@ app= Flask(__name__)
 
 
 @app.route("/")
-@docache(hours=12,content_type="image/svg+xml;charset=utf-8'")
+@docache(hours=12,content_type="image/svg+xml;charset=utf-8")
 def home():
     username = request.args.get("username",default="engineerscodes")
     repo= request.args.get("repo",default="PyVisionHUB")
