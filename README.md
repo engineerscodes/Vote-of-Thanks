@@ -6,7 +6,7 @@ github contributor stats
 <br>
 <hr>
 
-<img src="https://voteofthanks.azurewebsites.net/">
+<!--<img src="https://voteofthanks.azurewebsites.net/?username=engineerscodes&repo=engineerscodes"> --->
 
 
 
