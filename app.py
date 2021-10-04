@@ -36,7 +36,8 @@ def home():
         ImageURL=f"data:image/png;base64,{dataurl}"
         image=image+f'''
         <svg  width="70" height="70"  x="{70*Colcount}" y="{70*Rowcount}" >
-                    
+                    <rect xmlns="http://www.w3.org/2000/svg"  rx="4.5" width="70"
+                     height="70" stroke="#e1e4e8" fill="#FFF" stroke-opacity="1" fill-opacity="1"/>
                      <circle cx="32" cy="32" r="32" fill="#aeaeae" />
                               <defs>
                                 <clipPath id="circleView" >
@@ -45,8 +46,8 @@ def home():
                               </defs>
                             <image stroke="black" stroke-width="5" width="70" height="70" xlink:href="{ImageURL}" 
                             clip-path="url(#circleView)" />
-                            <text x="50%" y="50%"  width="70" height="70" text-anchor="middle" fill="red" font-size="16px" font-family="Arial" dy=".3em">
-                             {i['author']['login'] }
+                            <text x="50%" y="50%"  width="70" height="70" text-anchor="middle" fill="red" font-size="8px" font-family="Arial" dy=".3em">
+                             {str(i['author']['login'])[:11]}
                             </text>
                  </svg>
         '''
