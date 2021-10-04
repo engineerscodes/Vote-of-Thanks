@@ -31,7 +31,7 @@ def home():
         print(pilImage.size)
         pilImage.resize((32, 32), Image.ANTIALIAS)
         img_in_bytes = io.BytesIO()
-        pilImage.save(img_in_bytes,'png',optimize=True,quality=20)
+        pilImage.save(img_in_bytes,'png', optimize=True,quality=30)
         dataurl=base64.b64encode(img_in_bytes.getvalue()).decode('UTF-8')
         ImageURL=f"data:image/png;base64,{dataurl}"
         image=image+f'''
