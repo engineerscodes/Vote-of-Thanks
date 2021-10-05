@@ -26,13 +26,13 @@ def home():
     Colcount=0
     Rowcount=0
     for i in rjson:
-        #ImageContent=req.get(i['author']['avatar_url']).content
-        #pilImage = Image.open(BytesIO(ImageContent))
-        #pilImage.resize((32, 32), Image.ANTIALIAS)
-        #img_in_bytes = io.BytesIO()
-        #pilImage.save(img_in_bytes,'png', optimize=True,quality=30)
-        #dataurl=base64.b64encode(img_in_bytes.getvalue()).decode('UTF-8')
-        #ImageURL=f"data:image/png;base64,{dataurl}"
+        ImageContent=req.get(i['author']['avatar_url']).content
+        pilImage = Image.open(BytesIO(ImageContent))
+        pilImage.resize((32, 32), Image.ANTIALIAS)
+        img_in_bytes = io.BytesIO()
+        pilImage.save(img_in_bytes,'png', optimize=True,quality=30)
+        dataurl=base64.b64encode(img_in_bytes.getvalue()).decode('UTF-8')
+        ImageURL=f"data:image/png;base64,{dataurl}"
         image=image+f'''
         <svg  width="70" height="70"  x="{70*Colcount}" y="{70*Rowcount}" >
                     <rect xmlns="http://www.w3.org/2000/svg"  rx="4.5" width="70"
@@ -43,7 +43,7 @@ def home():
                                     <circle cx="32" cy="32" r="32" stroke="#c0c0c0" fill="#FFFFFF" />            
                                 </clipPath>
                               </defs>
-                            <image stroke="black" stroke-width="5" width="70" height="70" xlink:href="{i['author']['avatar_url']}" 
+                            <image stroke="black" stroke-width="5" width="70" height="70" xlink:href="{ImageURL}" 
                             clip-path="url(#circleView)" />
                             <text x="50%" y="50%"  width="70" height="70" text-anchor="middle" fill="red" font-size="8px" font-family="Arial" dy=".3em">
                              {str(i['author']['login'])[:11]}
