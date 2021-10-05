@@ -54,7 +54,7 @@ def home():
         if Colcount % 10 == 0:
             Rowcount = Rowcount + 1
     image=image+f'</svg>'
-    gzipcontent=gzip.compress(image.encode('utf8'),5)
+    gzipcontent=gzip.compress(image.encode('utf8'),6)
     return gzipcontent
 
 @app.route("/<user>")
