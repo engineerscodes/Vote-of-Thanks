@@ -12,6 +12,7 @@ def docache(hours=10, content_type='text/html; charset=utf-8'):
             rsp = Response(r, content_type=content_type)
             rsp.headers.add('Expires', then.strftime("%a, %d %b %Y %H:%M:%S GMT"))
             rsp.headers.add('Cache-Control', 'public,max-age=%d' % int(3600 * hours))
+            rsp.headers.add("Content-Encoding", "gzip")
             return rsp
         return wrapped_f
     return fwrap

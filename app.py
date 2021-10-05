@@ -6,6 +6,7 @@ from PIL import Image
 from io import BytesIO
 from flask import request
 import io
+import gzip
 
 
 app= Flask(__name__)
@@ -19,7 +20,6 @@ def home():
     r = req.get(f'https://api.github.com/repos/{username}/{repo}/stats/contributors')
     rjson=r.json()
     maxclo=len(rjson)/6 +1
-    print(maxclo," ",len(rjson))
     image=f'''<svg xmlns="http://www.w3.org/2000/svg" 
     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" 
     version="1.1" width="{6*70}" height="{maxclo*70}">'''
@@ -28,7 +28,6 @@ def home():
     for i in rjson:
         ImageContent=req.get(i['author']['avatar_url']).content
         pilImage = Image.open(BytesIO(ImageContent))
-        print(pilImage.size)
         pilImage.resize((32, 32), Image.ANTIALIAS)
         img_in_bytes = io.BytesIO()
         pilImage.save(img_in_bytes,'png', optimize=True,quality=30)
@@ -55,7 +54,8 @@ def home():
         if Colcount % 10 == 0:
             Rowcount = Rowcount + 1
     image=image+f'</svg>'
-    return image
+    gzipcontent=gzip.compress(image.encode('utf8'),5)
+    return gzipcontent
 
 @app.route("/<user>")
 def user(user):
